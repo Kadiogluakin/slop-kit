@@ -2,6 +2,10 @@
 
 SlopKit is an AI-powered brand book generator that creates comprehensive brand identities from just a moodboard and a short product description.
 
+## Live Demo
+
+[View the live demo on Vercel](https://slopkit.vercel.app)
+
 ## Features
 
 - Upload moodboard images via drag-and-drop
@@ -12,6 +16,11 @@ SlopKit is an AI-powered brand book generator that creates comprehensive brand i
   - Brand voice and tone
   - Logo suggestions
   - Visual style guidelines
+  - Presentation deck templates
+
+## Screenshots
+
+![SlopKit Brand Generator](public/screenshot.png)
 
 ## Getting Started
 
@@ -36,7 +45,7 @@ CLOUDINARY_API_SECRET=your_cloudinary_api_secret
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/slopkit.git
+git clone https://github.com/Kadiogluakin/slopkit.git
 cd slopkit
 ```
 
@@ -76,3 +85,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Author
+
+- [Akin Kadioglu](https://github.com/Kadiogluakin)
