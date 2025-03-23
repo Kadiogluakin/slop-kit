@@ -45,7 +45,7 @@ CLOUDINARY_API_SECRET=your_cloudinary_api_secret
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/Kadiogluakin/slopkit.git
+git clone https://github.com/Kadiogluakin/slop-kit.git
 cd slopkit
 ```
 
