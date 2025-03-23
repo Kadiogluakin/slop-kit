@@ -21,11 +21,9 @@ export default function DeckTemplateDisplay({
   // Create a simplified slide mockup with the brand colors
   const SlidePreview = ({ 
     title, 
-    description, 
     type 
   }: { 
     title: string; 
-    description: string;
     type: 'title' | 'content' | 'image' | 'data' | 'closing' 
   }) => {
     
@@ -221,7 +219,6 @@ export default function DeckTemplateDisplay({
             <div className="space-y-4">
               <SlidePreview 
                 title="Title Slide" 
-                description={titleSlide}
                 type="title" 
               />
               <p className="text-sm text-gray-700 bg-white p-3 rounded-lg border border-gray-200 shadow-sm">{titleSlide}</p>
@@ -230,7 +227,6 @@ export default function DeckTemplateDisplay({
             <div className="space-y-4">
               <SlidePreview 
                 title="Content Slide" 
-                description={contentSlide}
                 type="content" 
               />
               <p className="text-sm text-gray-700 bg-white p-3 rounded-lg border border-gray-200 shadow-sm">{contentSlide}</p>
@@ -239,7 +235,6 @@ export default function DeckTemplateDisplay({
             <div className="space-y-4">
               <SlidePreview 
                 title="Image Slide" 
-                description={imageSlide}
                 type="image" 
               />
               <p className="text-sm text-gray-700 bg-white p-3 rounded-lg border border-gray-200 shadow-sm">{imageSlide}</p>
@@ -248,7 +243,6 @@ export default function DeckTemplateDisplay({
             <div className="space-y-4">
               <SlidePreview 
                 title="Data Slide" 
-                description={dataSlide}
                 type="data" 
               />
               <p className="text-sm text-gray-700 bg-white p-3 rounded-lg border border-gray-200 shadow-sm">{dataSlide}</p>
@@ -257,7 +251,6 @@ export default function DeckTemplateDisplay({
             <div className="space-y-4">
               <SlidePreview 
                 title="Closing Slide" 
-                description={closingSlide}
                 type="closing" 
               />
               <p className="text-sm text-gray-700 bg-white p-3 rounded-lg border border-gray-200 shadow-sm">{closingSlide}</p>
