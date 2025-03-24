@@ -154,18 +154,46 @@ export default function BrandBookDisplay({ brandBook }: BrandBookDisplayProps) {
           </div>
 
           {/* Logo Suggestions */}
-          {brandBook.logoSuggestions && brandBook.logoSuggestions.length > 0 && (
+          {(brandBook.logoImages && brandBook.logoImages.length > 0) || (brandBook.logoSuggestions && brandBook.logoSuggestions.length > 0) ? (
             <div className="space-y-5">
-              <h3 className="text-2xl font-semibold text-gray-900 border-b pb-2 border-gray-200">Logo Suggestions</h3>
-              <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
-                <ul className="list-disc list-inside text-gray-800 space-y-2">
-                  {brandBook.logoSuggestions.map((suggestion, index) => (
-                    <li key={index} className="py-1">{suggestion}</li>
-                  ))}
-                </ul>
-              </div>
+              <h3 className="text-2xl font-semibold text-gray-900 border-b pb-2 border-gray-200">Logo</h3>
+              
+              {/* Generated Logo Images */}
+              {brandBook.logoImages && brandBook.logoImages.length > 0 && (
+                <div className="space-y-3">
+                  <h4 className="text-xl font-medium text-gray-900">Generated Logos</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {brandBook.logoImages.map((imageUrl, index) => (
+                      <div key={index} className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-all">
+                        <div className="aspect-square relative rounded-md overflow-hidden">
+                          <img 
+                            src={imageUrl} 
+                            alt={`Generated logo option ${index + 1}`} 
+                            className="w-full h-full object-contain"
+                          />
+                        </div>
+                        <p className="text-center mt-3 text-sm text-gray-600">Option {index + 1}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+              
+              {/* Text-based Logo Suggestions */}
+              {brandBook.logoSuggestions && brandBook.logoSuggestions.length > 0 && (
+                <div className="space-y-3">
+                  <h4 className="text-xl font-medium text-gray-900">Logo Suggestions</h4>
+                  <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                    <ul className="list-disc list-inside text-gray-800 space-y-2">
+                      {brandBook.logoSuggestions.map((suggestion, index) => (
+                        <li key={index} className="py-1">{suggestion}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              )}
             </div>
-          )}
+          ) : null}
         </div>
       </div>
       

@@ -59,6 +59,7 @@ export interface BrandBook {
   typography: Typography;
   brandVoice: BrandVoice;
   logoSuggestions?: string[];
+  logoImages?: string[];
   visualStyle: VisualStyle;
   deckTemplate: DeckTemplate;
 } 

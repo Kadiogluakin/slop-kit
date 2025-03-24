@@ -5,6 +5,52 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
+// Generate logo images using DALL-E
+export const generateLogos = async (brandBook: BrandBook, count: number = 3): Promise<string[]> => {
+  try {
+    const logoPrompt = `
+    Create a professional, modern logo for a brand with the following characteristics:
+    
+    Product: ${brandBook.description}
+    
+    Primary color: ${brandBook.colorPalette.primary}
+    Secondary color: ${brandBook.colorPalette.secondary}
+    Accent color: ${brandBook.colorPalette.accent}
+    
+    Brand personality: ${brandBook.brandVoice.personalityTraits.join(', ')}
+    
+    Style guidance: ${brandBook.visualStyle.iconStyle}
+    
+    The logo should be minimal, professional, high-quality, and reflect the brand identity perfectly.
+    Show the logo on a clean, white background. No text or labels needed. Just the logo mark itself.
+    `;
+    
+    const logoImages: string[] = [];
+    
+    // Generate requested number of logo variations
+    for (let i = 0; i < count; i++) {
+      const response = await openai.images.generate({
+        model: "dall-e-3",
+        prompt: logoPrompt,
+        n: 1,
+        size: "1024x1024",
+        quality: "standard",
+        style: "vivid",
+      });
+      
+      const imageUrl = response.data[0]?.url;
+      if (imageUrl) {
+        logoImages.push(imageUrl);
+      }
+    }
+    
+    return logoImages;
+  } catch (error) {
+    console.error('Error generating logos with DALL-E:', error);
+    return [];
+  }
+};
+
 export const generateBrandBook = async (input: BrandInput): Promise<BrandBook> => {
   try {
     const imageDescriptions = input.moodboardImages.map(img => 
@@ -91,7 +137,7 @@ export const generateBrandBook = async (input: BrandInput): Promise<BrandBook> =
 
     const brandBookContent = JSON.parse(response.choices[0].message.content || '{}');
     
-    return {
+    const brandBook = {
       description: input.description,
       colorPalette: brandBookContent.colorPalette,
       typography: brandBookContent.typography,
@@ -99,6 +145,14 @@ export const generateBrandBook = async (input: BrandInput): Promise<BrandBook> =
       logoSuggestions: brandBookContent.logoSuggestions,
       visualStyle: brandBookContent.visualStyle,
       deckTemplate: brandBookContent.deckTemplate
+    };
+    
+    // Generate logo images using DALL-E
+    const logoImages = await generateLogos(brandBook, 3);
+    
+    return {
+      ...brandBook,
+      logoImages
     };
   } catch (error) {
     console.error('Error generating brand book:', error);

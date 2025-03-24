@@ -3,6 +3,8 @@ import { generateBrandBook } from '../../../lib/openai';
 import { uploadImage } from '../../../lib/cloudinary';
 import { BrandInput, MoodboardImage } from '../../../types';
 
+export const maxDuration = 300; // 5 minutes max duration
+
 export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();
@@ -49,11 +51,16 @@ export async function POST(req: NextRequest) {
 
     const brandBook = await generateBrandBook(brandInput);
 
+    // Ensure we have a complete brand book before returning
+    if (!brandBook || !brandBook.colorPalette || !brandBook.typography) {
+      throw new Error('Generated brand book is incomplete');
+    }
+
     return NextResponse.json({ brandBook });
   } catch (error) {
     console.error('Error processing request:', error);
     return NextResponse.json(
-      { error: 'Failed to generate brand book' },
+      { error: error instanceof Error ? error.message : 'Failed to generate brand book' },
       { status: 500 }
     );
   }
